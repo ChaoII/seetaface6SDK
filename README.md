@@ -1,7 +1,8 @@
 # seetaface6SDK
 
 #### 介绍
-本项目是基于seetaface6源码编译后，再编译seetaface6JNI源码得到的一个sdk项目，原本想做成自适应windows和linux自适应，以及cpu和gpu选择使用
+本项目是基于seetaface6源码编译后，再编译seetaface6JNI源码得到的一个sdk项目，原本想做成自适应windows和linux自适应，以及cpu和gpu选择使用.
+全面包含官方功能，无内存溢出风险。
 
 #### 功能
 1.  人脸检测和关键点定位
