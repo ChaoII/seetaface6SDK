@@ -2,10 +2,8 @@ package com.seeta.proxy;
 
 import com.seeta.pool.FaceLandmarkerPool;
 import com.seeta.pool.SeetaConfSetting;
-import com.seeta.sdk.FaceLandmarker;
-import com.seeta.sdk.SeetaImageData;
-import com.seeta.sdk.SeetaPointF;
-import com.seeta.sdk.SeetaRect;
+import com.seeta.sdk.*;
+import javafx.util.Pair;
 
 
 /**
@@ -44,6 +42,25 @@ public class FaceLandmarkerProxy {
         return pointFS;
     }
 
+    public LandmarkerMask isMask(SeetaImageData imageData, SeetaRect seetaRect) {
+        FaceLandmarker faceLandmarker = null;
+        LandmarkerMask landmarkerMask = new LandmarkerMask();
+        try {
+            faceLandmarker = pool.borrowObject();
+            SeetaPointF[] pointFS = new SeetaPointF[faceLandmarker.number()];
+            int[] masks = new int[faceLandmarker.number()];
+            faceLandmarker.mark(imageData, seetaRect, pointFS, masks);
+            landmarkerMask.setMasks(masks);
+            landmarkerMask.setSeetaPointFS(pointFS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (faceLandmarker != null) {
+                pool.returnObject(faceLandmarker);
+            }
+        }
+        return landmarkerMask;
+    }
 
     public int number() {
         FaceLandmarker faceLandmarker = null;
